@@ -2,62 +2,35 @@
 
 **Event Management & Ticket Booking Platform**
 
-Eventra is a web application for discovering events and booking tickets
-online, with an admin dashboard for managing the event catalog. Built with
-HTML, CSS, and vanilla JavaScript on the frontend, backed by
-[json-server](https://github.com/typicode/json-server) as a lightweight REST API.
+Eventra is a web application for discovering events and booking tickets online, with an admin dashboard for managing the event catalog. Built with a frontend-first architecture — HTML, CSS, and vanilla JavaScript — backed by [json-server](https://github.com/typicode/json-server) as a lightweight REST API.
+
+---
+
+## Table of Contents
+
+- [Features](#features)
+- [Architecture](#architecture)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [API Reference](#api-reference)
+- [Team](#team)
+- [Contributing](#contributing)
+
+---
 
 ## Features
 
 - Browse and search upcoming events by category or location
 - View detailed event information with live seat availability
-- Book tickets with instant confirmation
-- User accounts with booking history
-- Admin dashboard for managing events
+- Book tickets with instant confirmation and a generated ticket ID
+- User accounts with personal booking history
+- Admin dashboard for managing events and monitoring bookings
 
-## Tech Stack
+---
 
-- **Frontend:** HTML5, CSS3, JavaScript (Fetch API)
-- **API & Data:** json-server
+## Architecture
 
-## Getting Started
-
-1. Install dependencies:
-   ```
-   npm install
-   ```
-2. Start the API server:
-   ```
-   npm start
-   ```
-   Runs on `http://localhost:3000`, exposing `/events`, `/bookings`, and `/users`.
-3. Open `frontend/index.html` in your browser (or serve the `frontend` folder with any static server).
-
-## Project Structure
-
-```
-eventra/
-├── db.json                 # Events, bookings, and user data
-├── package.json
-└── frontend/
-    ├── index.html           # Home
-    ├── events.html          # Browse Events
-    ├── event-detail.html    # Event Details
-    ├── booking.html         # Booking / Checkout
-    ├── login.html / register.html
-    ├── my-tickets.html      # User's bookings
-    ├── admin.html           # Event management
-    ├── css/style.css
-    └── js/
-        ├── api.js
-        └── main.js
-```
-
-## Team
-
-| Name | Focus Area |
-|---|---|
-| Pankaj | UI & Design System |
-| Parv Jain | Core Pages |
-| Pranav Tiwari | Data & Integration |
-| Pranjal Tiwari | Structure & Documentation |
+Eventra follows a simple client-server architecture. The browser is the only
+custom-built layer; json-server generates a complete REST API directly from
+`db.json`, so there is no custom backend code to maintain.
