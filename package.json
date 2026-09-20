@@ -1,0 +1,11 @@
+{
+  "name": "eventra",
+  "version": "0.1.0",
+  "description": "Eventra - Event Management & Ticket Booking Platform",
+  "scripts": {
+    "start": "json-server --watch db.json --port 3000"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.4"
+  }
+}
