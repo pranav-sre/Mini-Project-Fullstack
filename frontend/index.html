@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eventra — Find & Book Events</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">Event<span>ra</span></a>
+    <button class="nav-toggle" id="navToggle">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="events.html">Browse Events</a></li>
+      <li><a href="event-detail.html">Event Details</a></li>
+      <li><a href="booking.html">Booking</a></li>
+      <li><a href="my-tickets.html">My Tickets</a></li>
+      <li><a href="admin.html">Admin</a></li>
+      <li id="navUserSlot"></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div>
+      <div class="eyebrow-note">NO. 001 — ONE PLATFORM, EVERY EVENT</div>
+      <h1>Book your seat before the curtain rises.</h1>
+      <p class="lede">Concerts, summits, comedy nights and marathons — browse what's happening near you and lock in your ticket in under a minute.</p>
+      <div class="hero-actions">
+        <a href="events.html" class="btn btn-primary">Browse Events</a>
+        <a href="register.html" class="btn btn-outline" style="border-color:var(--paper);color:var(--paper)">Create Account</a>
+      </div>
+    </div>
+    <div class="hero-stub">
+      <div class="stat"><span>Live Events</span><b id="statEvents">--</b></div>
+      <div class="stat"><span>Tickets Booked</span><b id="statBookings">--</b></div>
+      <div class="stat"><span>Categories</span><b id="statCategories">--</b></div>
+    </div>
+  </div>
+  <div class="perforation"></div>
+</header>
+
+<main>
+  <section class="section container">
+
+    <div class="section-head">
+      <div>
+        <h2>Happening soon</h2>
+        <p>A quick look at events filling up fastest.</p>
+      </div>
+      <a href="events.html" class="btn btn-outline">View all →</a>
+    </div>
+    <div class="card-grid" id="featuredGrid">
+      <div class="loader">Loading events…</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
+    <div>HTML, CSS, JS &amp; json-server</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script>
+  async function loadHome() {
+    try {
+      const events = await apiGet("/events");
+      document.getElementById("statEvents").textContent = events.length;
+      document.getElementById("statCategories").textContent = new Set(events.map(e => e.category)).size;
+      const totalBooked = events.reduce((sum, e) => sum + e.bookedSeats, 0);
+      document.getElementById("statBookings").textContent = totalBooked;
+
+      const featured = [...events].sort((a, b) => seatsLeft(a) - seatsLeft(b)).slice(0, 3);
+      document.getElementById("featuredGrid").innerHTML = featured.map(renderTicketCard).join("");
+    } catch (err) {
+      document.getElementById("featuredGrid").innerHTML = `<p>Could not load events. Make sure json-server is running: <code>npm start</code></p>`;
+    }
+  }
+  loadHome();
+</script>
+</body>
+</html>
