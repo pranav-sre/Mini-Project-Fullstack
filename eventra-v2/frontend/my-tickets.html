@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Tickets — Eventra</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">Event<span>ra</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="events.html" class="">Browse Events</a></li>
+      <li><a href="event-detail-evt001.html" class="">Event Details</a></li>
+      <li><a href="booking-evt001.html" class="">Booking</a></li>
+      <li><a href="my-tickets.html" class="active">My Tickets</a></li>
+      <li><a href="admin.html" class="">Admin</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container section">
+  <div class="section-head">
+    <div>
+      <h2>🎟️ My Booked Tickets</h2>
+      <p>Your confirmed entry passes and ticket stubs.</p>
+    </div>
+  </div>
+
+  <!-- Ticket Pop-up / Confirmed Banner -->
+  <div id="popupBanner" class="popup-box" style="display:none;margin-bottom:28px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:2rem;color:#10b981">🎉</div>
+      <div>
+        <h3 style="margin:0;color:#065f46">Ticket Confirmed Successfully!</h3>
+        <p style="margin:4px 0 0 0;color:#047857">Payment completed. Your ticket demo stub is ready below.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-box">
+    <div class="ticket-stub-display" id="ticketCardDisplay">
+      <div class="stub-header">
+        <span class="badge" style="background:#10b981;color:#fff">VERIFIED PASS</span>
+        <b style="color:var(--muted)">TICKET ID: EVT-889124</b>
+      </div>
+      <div class="stub-body" style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin-top:16px">
+        <img id="tImg" src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=400&q=80" alt="Concert" style="width:120px;height:120px;object-fit:cover;border-radius:12px">
+        <div style="flex:1">
+          <h3 id="tTitle" style="margin:0 0 8px 0">Arijit Singh Live - India Tour 2026</h3>
+          <div style="color:var(--muted);font-size:0.95rem;line-height:1.6">
+            <div>👤 <b>Attendee:</b> Pranjal Tiwari</div>
+            <div>📅 <b>Date &amp; Time:</b> <span id="tDate">Nov 15, 2026 · 07:00 PM</span></div>
+            <div>📍 <b>Venue:</b> <span id="tVenue">JLN Stadium, New Delhi</span></div>
+            <div>🎫 <b>Seats:</b> 1 Pass (Admit One)</div>
+          </div>
+        </div>
+        <div style="text-align:center;padding:16px;background:var(--subtle);border-radius:12px">
+          <div style="font-size:2rem">📱</div>
+          <small style="color:var(--muted)">Show at Venue Gate</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var urlParams = new URLSearchParams(window.location.search);
+  if(urlParams.get('booked') === 'true') {
+    document.getElementById('popupBanner').style.display = 'block';
+    
+    var eId = urlParams.get('id');
+    var details = {
+      'evt001': { title: 'Arijit Singh Live - India Tour 2026', date: 'Nov 15, 2026 · 07:00 PM', venue: 'JLN Stadium, New Delhi', img: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=400&q=80' },
+      'evt002': { title: 'Sunburn Arena - NYE Festival 2026', date: 'Dec 31, 2026 · 08:00 PM', venue: 'Vagator Beach, Goa', img: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=400&q=80' },
+      'evt003': { title: 'A.R. Rahman Live Symphony', date: 'Dec 05, 2026 · 06:30 PM', venue: 'D.Y. Patil Stadium, Mumbai', img: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80' },
+      'evt004': { title: 'Zakir Khan Live - Tathastu Special', date: 'Nov 20, 2026 · 08:00 PM', venue: 'Talkatora Stadium, Delhi', img: 'https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&w=400&q=80' },
+      'evt005': { title: 'DevFest Tech Summit 2026', date: 'Dec 10, 2026 · 10:00 AM', venue: 'KTPO Center, Bengaluru', img: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=400&q=80' },
+      'evt006': { title: 'Nucleya - Bass Yatra Arena', date: 'Dec 18, 2026 · 07:30 PM', venue: 'E-Zone Arena, Bengaluru', img: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=400&q=80' }
+    };
+
+    if(eId && details[eId]) {
+      document.getElementById('tTitle').textContent = details[eId].title;
+      document.getElementById('tDate').textContent = details[eId].date;
+      document.getElementById('tVenue').textContent = details[eId].venue;
+      document.getElementById('tImg').src = details[eId].img;
+    }
+  }
+})();
+</script>
+
+</body>
+</html>
