@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eventra — Find & Book Events</title>
+<title>Eventra — Find & Book Live Events</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,15 +11,13 @@
 <nav class="navbar">
   <div class="container">
     <a href="index.html" class="brand">Event<span>ra</span></a>
-    <button class="nav-toggle" id="navToggle">☰</button>
-    <ul class="nav-links" id="navLinks">
+    <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="events.html">Browse Events</a></li>
-      <li><a href="event-detail.html">Event Details</a></li>
-      <li><a href="booking.html">Booking</a></li>
-      <li><a href="my-tickets.html">My Tickets</a></li>
-      <li><a href="admin.html">Admin</a></li>
-      <li id="navUserSlot"></li>
+      <li><a href="events.html" class="">Browse Events</a></li>
+      <li><a href="event-detail-evt001.html" class="">Event Details</a></li>
+      <li><a href="booking-evt001.html" class="">Booking</a></li>
+      <li><a href="my-tickets.html" class="">My Tickets</a></li>
+      <li><a href="admin.html" class="">Admin</a></li>
     </ul>
   </div>
 </nav>
@@ -27,18 +25,18 @@
 <header class="hero">
   <div class="container">
     <div>
-      <div class="eyebrow-note">NO. 001 — ONE PLATFORM, EVERY EVENT</div>
-      <h1>Book your seat before the curtain rises.</h1>
-      <p class="lede">Concerts, summits, comedy nights and marathons — browse what's happening near you and lock in your ticket in under a minute.</p>
+      <div class="eyebrow-note">✨ LIVE MUSIC &amp; CONCERTS 2026</div>
+      <h1>Experience the magic of live music.</h1>
+      <p class="lede">From blockbuster arena concerts with Arijit Singh to electric EDM nights with Sunburn Arena — browse top events and reserve your seats instantly.</p>
       <div class="hero-actions">
-        <a href="events.html" class="btn btn-primary">Browse Events</a>
+        <a href="events.html" class="btn btn-primary">Browse All Events</a>
         <a href="register.html" class="btn btn-outline" style="border-color:var(--paper);color:var(--paper)">Create Account</a>
       </div>
     </div>
     <div class="hero-stub">
-      <div class="stat"><span>Live Events</span><b id="statEvents">--</b></div>
-      <div class="stat"><span>Tickets Booked</span><b id="statBookings">--</b></div>
-      <div class="stat"><span>Categories</span><b id="statCategories">--</b></div>
+      <div class="stat"><span>Live Events</span><b>6</b></div>
+      <div class="stat"><span>Tickets Booked</span><b>840</b></div>
+      <div class="stat"><span>Categories</span><b>4</b></div>
     </div>
   </div>
   <div class="perforation"></div>
@@ -46,16 +44,124 @@
 
 <main>
   <section class="section container">
-
     <div class="section-head">
       <div>
-        <h2>Happening soon</h2>
-        <p>A quick look at events filling up fastest.</p>
+        <h2>🔥 Trending Live Concerts</h2>
+        <p>Catch your favorite superstars performing live on stage this season.</p>
       </div>
-      <a href="events.html" class="btn btn-outline">View all →</a>
+      <a href="events.html" class="btn btn-outline">Explore All →</a>
     </div>
-    <div class="card-grid" id="featuredGrid">
-      <div class="loader">Loading events…</div>
+
+    <div class="card-grid">
+      <div class="ticket-card animate-card">
+        <div class="tc-main">
+          <div class="img-wrapper">
+            <a href="event-detail-evt001.html">
+              <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80" alt="Arijit Singh Live Concert">
+            </a>
+            <span class="category-badge">Concert</span>
+          </div>
+          <div class="tc-body">
+            <div class="tc-category">🎵 Music &amp; Concerts</div>
+            <h3><a href="event-detail-evt001.html">Arijit Singh Live - India Tour 2026</a></h3>
+            <div class="tc-meta">
+              <div>📅 Nov 15, 2026 · 07:00 PM</div>
+              <div>📍 JLN Stadium, New Delhi</div>
+            </div>
+            <div class="tc-footer">
+              <div class="tc-price">₹1,499 <small>/ ticket</small></div>
+              <a href="booking-evt001.html" class="btn btn-primary btn-sm">Book Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket-card animate-card">
+        <div class="tc-main">
+          <div class="img-wrapper">
+            <a href="event-detail-evt002.html">
+              <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80" alt="Sunburn Arena DJ Night">
+            </a>
+            <span class="category-badge">EDM Festival</span>
+          </div>
+          <div class="tc-body">
+            <div class="tc-category">⚡ Electronic Music</div>
+            <h3><a href="event-detail-evt002.html">Sunburn Arena - NYE Festival 2026</a></h3>
+            <div class="tc-meta">
+              <div>📅 Dec 31, 2026 · 08:00 PM</div>
+              <div>📍 Vagator Beach, Goa</div>
+            </div>
+            <div class="tc-footer">
+              <div class="tc-price">₹2,499 <small>/ ticket</small></div>
+              <a href="booking-evt002.html" class="btn btn-primary btn-sm">Book Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ticket-card animate-card">
+        <div class="tc-main">
+          <div class="img-wrapper">
+            <a href="event-detail-evt003.html">
+              <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" alt="A.R. Rahman Live Symphony">
+            </a>
+            <span class="category-badge">Symphony</span>
+          </div>
+          <div class="tc-body">
+            <div class="tc-category">🎻 Classical &amp; Fusion</div>
+            <h3><a href="event-detail-evt003.html">A.R. Rahman Live Symphony</a></h3>
+            <div class="tc-meta">
+              <div>📅 Dec 05, 2026 · 06:30 PM</div>
+              <div>📍 D.Y. Patil Stadium, Mumbai</div>
+            </div>
+            <div class="tc-footer">
+              <div class="tc-price">₹1,999 <small>/ ticket</small></div>
+              <a href="booking-evt003.html" class="btn btn-primary btn-sm">Book Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head">
+      <div>
+        <h2>Browse by Event Type</h2>
+        <p>Pick a category to see specific events.</p>
+      </div>
+    </div>
+    <div class="cat-grid">
+      <a class="cat-tile" href="events.html?cat=music"><span class="cat-icon">🎵</span><b>Live Concerts</b><small>4 upcoming</small></a>
+      <a class="cat-tile" href="events.html?cat=comedy"><span class="cat-icon">🎤</span><b>Stand-up Comedy</b><small>1 upcoming</small></a>
+      <a class="cat-tile" href="events.html?cat=edm"><span class="cat-icon">🎧</span><b>EDM &amp; DJ Nights</b><small>1 upcoming</small></a>
+      <a class="cat-tile" href="events.html?cat=tech"><span class="cat-icon">💻</span><b>Tech Summits</b><small>1 upcoming</small></a>
+    </div>
+  </section>
+
+  <section class="section container">
+    <div class="section-head">
+      <div>
+        <h2>How to Book Your Tickets</h2>
+        <p>Simple and seamless reservation in three easy steps.</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Select Concert</h3>
+        <p>Choose from live music tours, stand-up specials, or tech summits.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Click Book Now</h3>
+        <p>Review event details and ticket pricing.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Get Your Pass</h3>
+        <p>Receive your confirmed digital ticket pass instantly.</p>
+      </div>
     </div>
   </section>
 </main>
@@ -63,28 +169,9 @@
 <footer>
   <div class="container">
     <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
-    <div>HTML, CSS, JS &amp; json-server</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
   </div>
 </footer>
 
-<script src="js/api.js"></script>
-<script src="js/main.js"></script>
-<script>
-  async function loadHome() {
-    try {
-      const events = await apiGet("/events");
-      document.getElementById("statEvents").textContent = events.length;
-      document.getElementById("statCategories").textContent = new Set(events.map(e => e.category)).size;
-      const totalBooked = events.reduce((sum, e) => sum + e.bookedSeats, 0);
-      document.getElementById("statBookings").textContent = totalBooked;
-
-      const featured = [...events].sort((a, b) => seatsLeft(a) - seatsLeft(b)).slice(0, 3);
-      document.getElementById("featuredGrid").innerHTML = featured.map(renderTicketCard).join("");
-    } catch (err) {
-      document.getElementById("featuredGrid").innerHTML = `<p>Could not load events. Make sure json-server is running: <code>npm start</code></p>`;
-    }
-  }
-  loadHome();
-</script>
 </body>
 </html>
