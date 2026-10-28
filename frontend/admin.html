@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel — Eventra</title>
+<title>Admin Dashboard — Eventra</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,35 +11,91 @@
 <nav class="navbar">
   <div class="container">
     <a href="index.html" class="brand">Event<span>ra</span></a>
-    <button class="nav-toggle" id="navToggle">☰</button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="events.html">Browse Events</a></li>
-      <li><a href="event-detail.html">Event Details</a></li>
-      <li><a href="booking.html">Booking</a></li>
-      <li><a href="my-tickets.html">My Tickets</a></li>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="events.html" class="">Browse Events</a></li>
+      <li><a href="event-detail-evt001.html" class="">Event Details</a></li>
+      <li><a href="booking-evt001.html" class="">Booking</a></li>
+      <li><a href="my-tickets.html" class="">My Tickets</a></li>
       <li><a href="admin.html" class="active">Admin</a></li>
-      <li id="navUserSlot"></li>
     </ul>
   </div>
 </nav>
 
 <main class="container section">
-  <div class="wip-banner">
-    <div class="wip-tag">Coming Soon</div>
-    <h3>Admin Panel</h3>
-    <p>A dedicated dashboard for organizers to add, update, and manage events and monitor bookings.</p>
+  <div class="section-head">
+    <div>
+      <h2>⚙️ Admin Portal Dashboard</h2>
+      <p>Manage events, ticket sales, and platform analytics.</p>
+    </div>
+  </div>
+
+  <div class="content-box">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:16px;margin-bottom:24px">
+      <div style="padding:16px;background:var(--subtle);border-radius:12px;border:1px solid var(--border)">
+        <small style="color:var(--muted)">Total Sales</small>
+        <h2 style="margin:4px 0;color:var(--primary)">₹12,48,500</h2>
+      </div>
+      <div style="padding:16px;background:var(--subtle);border-radius:12px;border:1px solid var(--border)">
+        <small style="color:var(--muted)">Tickets Sold</small>
+        <h2 style="margin:4px 0">840</h2>
+      </div>
+      <div style="padding:16px;background:var(--subtle);border-radius:12px;border:1px solid var(--border)">
+        <small style="color:var(--muted)">Active Events</small>
+        <h2 style="margin:4px 0">6</h2>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <h3>Live Event List</h3>
+      <button class="btn btn-primary btn-sm">+ Add New Event</button>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table style="width:100%;border-collapse:collapse;text-align:left">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border);color:var(--muted)">
+            <th style="padding:10px">Event Name</th>
+            <th style="padding:10px">Date</th>
+            <th style="padding:10px">Price</th>
+            <th style="padding:10px">Status</th>
+            <th style="padding:10px">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px"><b>Arijit Singh Live</b></td>
+            <td style="padding:12px">Nov 15, 2026</td>
+            <td style="padding:12px">₹1,499</td>
+            <td style="padding:12px"><span class="badge" style="background:#10b981;color:#fff">Active</span></td>
+            <td style="padding:12px"><button class="btn btn-outline btn-sm">Edit</button></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border)">
+            <td style="padding:12px"><b>Sunburn Arena NYE</b></td>
+            <td style="padding:12px">Dec 31, 2026</td>
+            <td style="padding:12px">₹2,499</td>
+            <td style="padding:12px"><span class="badge" style="background:#10b981;color:#fff">Active</span></td>
+            <td style="padding:12px"><button class="btn btn-outline btn-sm">Edit</button></td>
+          </tr>
+          <tr>
+            <td style="padding:12px"><b>A.R. Rahman Symphony</b></td>
+            <td style="padding:12px">Dec 05, 2026</td>
+            <td style="padding:12px">₹1,999</td>
+            <td style="padding:12px"><span class="badge" style="background:#10b981;color:#fff">Active</span></td>
+            <td style="padding:12px"><button class="btn btn-outline btn-sm">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </main>
 
 <footer>
   <div class="container">
     <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
-    <div>HTML, CSS, JS &amp; json-server</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
   </div>
 </footer>
 
-<script src="js/api.js"></script>
-<script src="js/main.js"></script>
 </body>
 </html>
