@@ -11,35 +11,224 @@
 <nav class="navbar">
   <div class="container">
     <a href="index.html" class="brand">Event<span>ra</span></a>
-    <button class="nav-toggle" id="navToggle">☰</button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
       <li><a href="events.html" class="active">Browse Events</a></li>
-      <li><a href="event-detail.html">Event Details</a></li>
-      <li><a href="booking.html">Booking</a></li>
-      <li><a href="my-tickets.html">My Tickets</a></li>
-      <li><a href="admin.html">Admin</a></li>
-      <li id="navUserSlot"></li>
+      <li><a href="event-detail-evt001.html" class="">Event Details</a></li>
+      <li><a href="booking-evt001.html" class="">Booking</a></li>
+      <li><a href="my-tickets.html" class="">My Tickets</a></li>
+      <li><a href="admin.html" class="">Admin</a></li>
     </ul>
   </div>
 </nav>
 
 <main class="container section">
-  <div class="wip-banner">
-    <div class="wip-tag">Coming Soon</div>
-    <h3>Browse Events page</h3>
-    <p>Search and filter through every upcoming event by category or location to find exactly what you're looking for.</p>
+  <div class="section-head">
+    <div>
+      <h2 id="pageHeading">Browse Upcoming Events</h2>
+      <p id="pageSubheading">Explore live music tours, stand-up specials, and technical conferences.</p>
+    </div>
+  </div>
+
+  <div class="chip-row" style="margin-bottom:28px">
+    <a href="events.html" class="chip active" id="chipAll">All Shows</a>
+    <a href="events.html?cat=music" class="chip" id="chipMusic">Live Concerts</a>
+    <a href="events.html?cat=comedy" class="chip" id="chipComedy">Stand-up Comedy</a>
+    <a href="events.html?cat=edm" class="chip" id="chipEdm">EDM &amp; DJ Nights</a>
+    <a href="events.html?cat=tech" class="chip" id="chipTech">Tech Summits</a>
+  </div>
+
+  <div class="card-grid">
+    <div class="ticket-card animate-card event-item cat-music">
+      <div class="tc-main">
+        <div class="img-wrapper">
+          <a href="event-detail-evt001.html">
+            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80" alt="Arijit Singh">
+          </a>
+          <span class="category-badge">Live Concert</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-category">🎵 Music</div>
+          <h3><a href="event-detail-evt001.html">Arijit Singh Live Tour 2026</a></h3>
+          <div class="tc-meta">
+            <div>📅 Nov 15, 2026 · 07:00 PM</div>
+            <div>📍 JLN Stadium, New Delhi</div>
+          </div>
+          <div class="tc-footer">
+            <div class="tc-price">₹1,499 <small>/ ticket</small></div>
+            <a href="booking-evt001.html" class="btn btn-primary btn-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticket-card animate-card event-item cat-music">
+      <div class="tc-main">
+        <div class="img-wrapper">
+          <a href="event-detail-evt003.html">
+            <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" alt="AR Rahman">
+          </a>
+          <span class="category-badge">Symphony</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-category">🎻 Music</div>
+          <h3><a href="event-detail-evt003.html">A.R. Rahman Live Symphony</a></h3>
+          <div class="tc-meta">
+            <div>📅 Dec 05, 2026 · 06:30 PM</div>
+            <div>📍 D.Y. Patil Stadium, Mumbai</div>
+          </div>
+          <div class="tc-footer">
+            <div class="tc-price">₹1,999 <small>/ ticket</small></div>
+            <a href="booking-evt003.html" class="btn btn-primary btn-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticket-card animate-card event-item cat-edm cat-music">
+      <div class="tc-main">
+        <div class="img-wrapper">
+          <a href="event-detail-evt002.html">
+            <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80" alt="Sunburn Arena">
+          </a>
+          <span class="category-badge">EDM Night</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-category">🎧 Electronic</div>
+          <h3><a href="event-detail-evt002.html">Sunburn Arena - NYE Festival 2026</a></h3>
+          <div class="tc-meta">
+            <div>📅 Dec 31, 2026 · 08:00 PM</div>
+            <div>📍 Vagator Beach, Goa</div>
+          </div>
+          <div class="tc-footer">
+            <div class="tc-price">₹2,499 <small>/ ticket</small></div>
+            <a href="booking-evt002.html" class="btn btn-primary btn-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticket-card animate-card event-item cat-comedy">
+      <div class="tc-main">
+        <div class="img-wrapper">
+          <a href="event-detail-evt004.html">
+            <img src="https://images.unsplash.com/photo-1585699324551-f6c309eedeca?auto=format&fit=crop&w=600&q=80" alt="Zakir Khan Live">
+          </a>
+          <span class="category-badge">Stand-up</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-category">🎤 Comedy</div>
+          <h3><a href="event-detail-evt004.html">Zakir Khan Live - Tathastu Special</a></h3>
+          <div class="tc-meta">
+            <div>📅 Nov 20, 2026 · 08:00 PM</div>
+            <div>📍 Talkatora Stadium, Delhi</div>
+          </div>
+          <div class="tc-footer">
+            <div class="tc-price">₹799 <small>/ ticket</small></div>
+            <a href="booking-evt004.html" class="btn btn-primary btn-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticket-card animate-card event-item cat-tech">
+      <div class="tc-main">
+        <div class="img-wrapper">
+          <a href="event-detail-evt005.html">
+            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=80" alt="DevFest Tech Summit">
+          </a>
+          <span class="category-badge">Conference</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-category">💻 Technology</div>
+          <h3><a href="event-detail-evt005.html">DevFest Tech Summit 2026</a></h3>
+          <div class="tc-meta">
+            <div>📅 Dec 10, 2026 · 10:00 AM</div>
+            <div>📍 KTPO Convention Center, Bengaluru</div>
+          </div>
+          <div class="tc-footer">
+            <div class="tc-price">₹1,299 <small>/ ticket</small></div>
+            <a href="booking-evt005.html" class="btn btn-primary btn-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticket-card animate-card event-item cat-music">
+      <div class="tc-main">
+        <div class="img-wrapper">
+          <a href="event-detail-evt006.html">
+            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=600&q=80" alt="Nucleya Bass Yatra">
+          </a>
+          <span class="category-badge">Bass Music</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-category">🎵 Music</div>
+          <h3><a href="event-detail-evt006.html">Nucleya - Bass Yatra Arena</a></h3>
+          <div class="tc-meta">
+            <div>📅 Dec 18, 2026 · 07:30 PM</div>
+            <div>📍 E-Zone Arena, Bengaluru</div>
+          </div>
+          <div class="tc-footer">
+            <div class="tc-price">₹999 <small>/ ticket</small></div>
+            <a href="booking-evt006.html" class="btn btn-primary btn-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </main>
 
 <footer>
   <div class="container">
     <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
-    <div>HTML, CSS, JS &amp; json-server</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
   </div>
 </footer>
 
-<script src="js/api.js"></script>
-<script src="js/main.js"></script>
+<script>
+(function() {
+  var urlParams = new URLSearchParams(window.location.search);
+  var cat = urlParams.get('cat');
+  if(!cat) return;
+
+  var items = document.querySelectorAll('.event-item');
+  var chips = document.querySelectorAll('.chip');
+  
+  chips.forEach(function(chip) { chip.classList.remove('active'); });
+
+  if(cat === 'music') {
+    document.getElementById('chipMusic').classList.add('active');
+    document.getElementById('pageHeading').textContent = '🎵 Live Music & Concerts';
+    document.getElementById('pageSubheading').textContent = 'Showing all upcoming live music performances and concerts.';
+    items.forEach(function(item) {
+      item.style.display = item.classList.contains('cat-music') ? 'block' : 'none';
+    });
+  } else if(cat === 'comedy') {
+    document.getElementById('chipComedy').classList.add('active');
+    document.getElementById('pageHeading').textContent = '🎤 Stand-up Comedy Specials';
+    document.getElementById('pageSubheading').textContent = 'Showing all live stand-up comedy shows.';
+    items.forEach(function(item) {
+      item.style.display = item.classList.contains('cat-comedy') ? 'block' : 'none';
+    });
+  } else if(cat === 'edm') {
+    document.getElementById('chipEdm').classList.add('active');
+    document.getElementById('pageHeading').textContent = '🎧 EDM & DJ Nights';
+    document.getElementById('pageSubheading').textContent = 'Showing electronic dance music festivals.';
+    items.forEach(function(item) {
+      item.style.display = item.classList.contains('cat-edm') ? 'block' : 'none';
+    });
+  } else if(cat === 'tech') {
+    document.getElementById('chipTech').classList.add('active');
+    document.getElementById('pageHeading').textContent = '💻 Tech Summits';
+    document.getElementById('pageSubheading').textContent = 'Showing technical conferences and developer summits.';
+    items.forEach(function(item) {
+      item.style.display = item.classList.contains('cat-tech') ? 'block' : 'none';
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
