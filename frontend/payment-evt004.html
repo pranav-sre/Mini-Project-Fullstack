@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment — Zakir Khan Live - Tathastu Special</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">Event<span>ra</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="">Home</a></li>
+      <li><a href="events.html" class="">Browse Events</a></li>
+      <li><a href="event-detail-evt004.html" class="">Event Details</a></li>
+      <li><a href="booking-evt004.html" class="active">Booking</a></li>
+      <li><a href="my-tickets.html" class="">My Tickets</a></li>
+      <li><a href="admin.html" class="">Admin</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container section">
+<div class="content-box" style="max-width:700px;margin:0 auto">
+  <div class="section-head" style="margin-bottom:20px">
+    <div>
+      <h2>💳 Select Payment Method</h2>
+      <p>Amount to Pay: <b style="color:var(--primary);font-size:1.2rem">₹799</b></p>
+    </div>
+  </div>
+
+  <div class="payment-options">
+    <div class="payment-box">
+      <h3>📱 UPI Payment (Google Pay / PhonePe / Paytm)</h3>
+      <div class="field" style="margin-top:12px">
+        <label>Enter UPI ID</label>
+        <input type="text" placeholder="example@upi" value="pranjal@okicici">
+      </div>
+      <div class="qr-placeholder" style="text-align:center;padding:16px;background:var(--subtle);border-radius:8px;margin:12px 0">
+        <div style="font-size:2rem">📲</div>
+        <small style="color:var(--muted)">Scan QR Code via any UPI App</small>
+      </div>
+    </div>
+
+    <div class="payment-box" style="margin-top:20px">
+      <h3>💳 Credit / Debit Card</h3>
+      <div class="field">
+        <label>Card Number</label>
+        <input type="text" placeholder="4532 •••• •••• 8921" value="4532 8812 9012 8921">
+      </div>
+      <div style="display:flex;gap:12px">
+        <div class="field" style="flex:1">
+          <label>Expiry Date</label>
+          <input type="text" placeholder="MM/YY" value="11/28">
+        </div>
+        <div class="field" style="flex:1">
+          <label>CVV</label>
+          <input type="password" placeholder="•••" value="882">
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px">
+      <a href="my-tickets.html?booked=true&id=evt004" class="btn btn-primary btn-block" style="text-align:center;padding:14px">Pay ₹799 &amp; Complete Booking</a>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+</body>
+</html>
