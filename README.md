@@ -1,197 +1,149 @@
-# 🎟️ Eventra
+# 🎟️ Eventra: Event Management & Ticket Booking Platform
 
-**Event Management & Ticket Booking Platform**
+> Discover events, book tickets in a few clicks, and manage everything from an admin dashboard. It is built with plain HTML, CSS and JavaScript, with no framework and no custom backend.
 
-Eventra is a web application for discovering events and booking tickets online, with an admin dashboard for managing the event catalog. It is built with HTML, CSS and vanilla JavaScript on the frontend, backed by [json-server](https://github.com/typicode/json-server) as a lightweight mock REST API.
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)
+![json-server](https://img.shields.io/badge/API-json--server-4F46E5)
 
-> Mini project for the Full Stack course, built by a team of 4 using a Git feature-branch and pull-request workflow.
-
----
-
-## 📌 Table of Contents
-
-- [Features](#-features)
-- [Project Status](#-project-status)
-- [Tech Stack](#-tech-stack)
-- [Getting Started](#-getting-started)
-- [Demo Accounts](#-demo-accounts)
-- [API Endpoints](#-api-endpoints)
-- [Project Structure](#-project-structure)
-- [Pages](#-pages)
-- [Git Workflow](#-git-workflow)
-- [Team](#-team)
-- [Roadmap](#-roadmap)
+**B.Tech CSE (3rd Year) mini project, Group 10, GLA University, Mathura**
+Supervised by **Mr. Yash Singh**
 
 ---
+
+## 📖 About
+
+Eventra lets users browse concerts, stand-up shows, EDM nights and tech summits, view event details, book tickets and see their bookings. Admins get a dashboard to add, edit and delete events and to track bookings and revenue.
+
+The project is frontend-focused. All data storage and the REST API come from [`json-server`](https://github.com/typicode/json-server), which serves `db.json` over HTTP.
 
 ## ✨ Features
 
-- Browse upcoming events by category
-- Detailed event pages with date, venue, price and seat information
-- Ticket booking and payment flow for each event
-- User registration and login
-- "My Tickets" page showing a user's bookings
-- Admin dashboard with sales stats and an event list
-- Responsive layout (CSS Grid, Flexbox and a mobile navigation toggle)
-
-## 🚦 Project Status
-
-This is a work in progress. Current state:
-
-| Area | Status |
+| Area | What you can do |
 |---|---|
-| Frontend UI for all pages | ✅ Done |
-| REST API (json-server) with 6 sample events | ✅ Done |
-| Login and Register connected to the API | ✅ Done |
-| Browse, Booking, Payment, My Tickets, Admin loading live data from the API | 🔧 In progress (currently static UI) |
-| Admin Add / Edit / Delete events | 🔧 Planned |
-| Admin-only access check | 🔧 Planned |
+| 🏠 **Home** | Hero search, featured and trending events, category tiles, scroll animations |
+| 🔎 **Browse & search** | List all events, filter by category (`?cat=`), search by artist, venue or keyword (`?q=`) |
+| 📄 **Event details** | Full description, date, time, venue, price and seat info |
+| 🎫 **Booking** | Login-protected booking form with attendee details and 1–4 tickets, with a live total price |
+| 💳 **Payment** | UPI and Card payment screen, then ticket creation |
+| 🧾 **My Tickets** | Each user sees only their own passes |
+| 🔐 **Auth** | Signup and login on one page; the navbar shows the logged-in user and logout |
+| 🛠️ **Admin panel** | Dashboard stats (events, tickets sold, revenue), bookings table, full event CRUD. Visible only to emails listed in `adminUsers` |
 
-## 🛠️ Tech Stack
+## 🧰 Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | HTML5, CSS3 (variables, Grid, Flexbox), JavaScript (ES6+, Fetch API, async/await) |
-| API & Data | [json-server](https://github.com/typicode/json-server) v0.17 with `db.json` |
-| Session | Browser `localStorage` |
-| Version Control | Git and GitHub (feature branches + pull requests) |
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v16 or newer) and npm
-- Git
-- A modern browser (VS Code Live Server is recommended)
-
-### Installation
-
-```bash
-# 1. Clone the repository
-git clone https://github.com/pranav-sre/Mini-Project-Fullstack.git
-cd Mini-Project-Fullstack
-
-# 2. Install dependencies
-npm install
-
-# 3. Start the API server
-npm start
-```
-
-The API now runs at **http://localhost:3000**.
-
-### Open the frontend
-
-Open `frontend/index.html` in your browser, or right-click it in VS Code and choose **Open with Live Server**.
-
-> Keep the `npm start` terminal running while you use the site. Pages that fetch data need the API to be up.
-
-## 🔑 Demo Accounts
-
-These are sample accounts stored in `db.json` for development only.
-
-| Role | Email | Password |
-|---|---|---|
-| User | `demo@eventra.com` | `demo123` |
-| Admin | `admin@eventra.com` | `admin123` |
-
-> ⚠️ Passwords are stored in plain text because this is a mock API. A real backend would hash passwords and use token-based authentication.
-
-## 🔌 API Endpoints
-
-json-server generates REST endpoints automatically from the top-level keys in `db.json`.
-
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/events` | List all events |
-| GET | `/events/:id` | Get a single event (e.g. `/events/evt001`) |
-| GET | `/events?category=Music` | Filter events by category |
-| POST | `/events` | Create an event |
-| PATCH | `/events/:id` | Update fields of an event |
-| DELETE | `/events/:id` | Delete an event |
-| GET | `/users?email=...` | Look up a user (used by login) |
-| POST | `/users` | Register a new user |
-| GET / POST | `/bookings` | List or create bookings |
-
-The frontend helpers live in [`frontend/js/api.js`](frontend/js/api.js): `apiGet`, `apiPost`, `apiPatch` and `apiDelete`.
+- **Frontend:** HTML5, CSS3 (custom design system), vanilla JavaScript (ES6+)
+- **API / database:** `json-server` (`db.json`)
+- **Communication:** Fetch API
+- **Tooling:** Node.js and npm (only to run json-server), Git and GitHub
 
 ## 📁 Project Structure
 
 ```
 Mini-Project-Fullstack/
-├── .github/                      # Issue and PR templates
-├── db.json                       # Events, bookings and users (mock database)
-├── package.json                  # Scripts and dependencies
-├── CONTRIBUTING.md               # Branching and PR rules
+├── db.json                 # Mock database (events, users, adminUsers, tickets)
+├── package.json            # npm scripts and json-server dependency
 ├── README.md
+├── CONTRIBUTING.md
 └── frontend/
-    ├── index.html                # Home page
-    ├── events.html               # Browse events
-    ├── event-detail.html         # Event details
-    ├── event-detail-evt001..006.html
-    ├── booking.html              # Booking
-    ├── booking-evt001..006.html
-    ├── payment-evt001..006.html  # Payment
-    ├── login.html
-    ├── register.html
-    ├── my-tickets.html           # User's tickets
-    ├── admin.html                # Admin dashboard
+    ├── index.html          # Home page
+    ├── events.html         # Browse / search / filter events
+    ├── event-detail.html   # Single event page
+    ├── booking.html        # Attendee details + quantity
+    ├── payment.html        # UPI / Card payment
+    ├── my-tickets.html     # User's booked tickets
+    ├── login.html          # Login + Signup
+    ├── admin.html          # Admin dashboard
     ├── css/
-    │   └── style.css             # Global styles and design tokens
+    │   ├── style.css       # Global design system
+    │   └── home.css        # Home page styles
     └── js/
-        ├── api.js                # API helpers and session functions
-        └── main.js               # Navbar toggle and URL helper
+        ├── api.js          # All API helpers + navbar/auth sync
+        └── home.js         # Home page behaviour
 ```
 
-## 📄 Pages
+## 🚀 Getting Started
 
-| Page | Purpose |
-|---|---|
-| `index.html` | Landing page with hero, categories and featured events |
-| `events.html` | Browse all events |
-| `event-detail-evtXXX.html` | Details for one event |
-| `booking-evtXXX.html` | Select tickets for an event |
-| `payment-evtXXX.html` | Payment step for an event |
-| `my-tickets.html` | Tickets booked by the logged-in user |
-| `login.html` / `register.html` | Authentication |
-| `admin.html` | Admin dashboard |
+### Prerequisites
+- [Node.js](https://nodejs.org/) 16 or newer
+- A modern browser
+- Git
+
+### 1. Clone and install
+```bash
+git clone https://github.com/pranav-sre/Mini-Project-Fullstack.git
+cd Mini-Project-Fullstack
+npm install
+```
+
+### 2. Start the API
+```bash
+npm start
+```
+This runs `json-server --watch db.json --port 3000`. The API is now live at **http://localhost:3000**.
+
+### 3. Open the frontend
+Open `frontend/index.html` in your browser. You can also serve the folder, for example with the VS Code *Live Server* extension or `npx serve frontend`.
+
+> ⚠️ Keep `npm start` running while you use the site. Every page fetches from `http://localhost:3000`.
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Used for |
+|---|---|---|
+| GET | `/events`, `/events/:id` | Listing and event details |
+| POST / PUT / DELETE | `/events`, `/events/:id` | Admin event management |
+| GET / POST | `/users` | Login check and signup |
+| GET | `/adminUsers` | Admin email verification |
+| GET / POST | `/tickets` | My Tickets, bookings and admin stats |
+
+## 🔄 User Flow
+
+```
+Home → Browse Events → Event Details → Login → Booking → Payment → My Tickets
+                                                      ↘ Admin (event CRUD, bookings, revenue)
+```
+
+## 👥 Team & Responsibilities
+
+| Member | Roll No. | Modules |
+|---|---|---|
+| **Pranav Tiwari** | 2415001140 | Home page, Admin dashboard, JavaScript (`api.js`, `home.js`) |
+| **Pranjal Tiwari** | 2415001143 | Events, Event details, CSS (`style.css`) |
+| **Parv Jain** | 2415001094 | Booking, My Tickets, `db.json` |
+| **Pankaj** | 2415001086 | Payment, Login / Signup |
 
 ## 🌿 Git Workflow
 
-We follow the rules in [CONTRIBUTING.md](CONTRIBUTING.md).
+We follow a three-level branching strategy:
 
 ```
-main   ← stable, receives changes only from dev via the final PR
- └── dev   ← integration branch
-      └── feature/<name>   ← one branch per feature, merged into dev through a PR
+main        → final stable version (never push directly)
+ └── dev    → integration & testing
+      └── feature/*  → one branch per member/task
 ```
 
-1. Branch from the latest `dev`: `git switch -c feature/<name>`
-2. Make small, meaningful commits.
-3. Push the branch and open a pull request with **base `dev`**.
-4. Another team member reviews and approves.
-5. Merge with **"Create a merge commit"** so every member's commits are preserved.
-6. Never push directly to `main` or `dev`, and never force-push shared branches.
+1. `git switch dev && git pull origin dev`
+2. `git switch -c feature/<name>`
+3. Commit small, meaningful changes and `git push -u origin feature/<name>`
+4. Open a Pull Request **feature → dev** and get at least one review
+5. After testing on `dev`, open one final Pull Request **dev → main**
 
-## 👥 Team
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide.
 
-| Name | Contribution |
-|---|---|
-| **Pranav Tiwari** | Project base (home page, `style.css`, JS files, `db.json`, setup) and Admin dashboard |
-| **Pranjal Tiwari** | Browse events and event details pages |
-| **Parv Jain** | Booking pages and My Tickets |
-| **Pankaj** | Payment pages, Register and Login |
+## 🔮 Future Improvements
 
-## 🗺️ Roadmap
+- Real-time seat tracking that decrements on booking and blocks sold-out events
+- Hashed passwords and token-based authentication with a real backend
+- Input validation and a payment gateway integration
+- Ticket cancellation, QR-code passes and email confirmation
+- Hiding or archiving events that have already passed
 
-- [ ] Load events from the API on the Browse and Home pages
-- [ ] Save bookings to `/bookings` and show them in My Tickets
-- [ ] Update `bookedSeats` and show live seat availability
-- [ ] Admin dashboard: real stats plus Add / Edit / Delete events
-- [ ] Admin-only route protection
-- [ ] Replace json-server with Node.js, Express and a real database
-- [ ] Hash passwords and use JWT authentication
+## 📄 License
 
-## 📜 License
+This project was created for academic purposes at GLA University, Mathura.
 
-This project is for educational purposes.
+---
+
+<p align="center">Made with ❤️ by Group 10, GLA University</p>
