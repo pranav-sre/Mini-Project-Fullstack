@@ -3,175 +3,246 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eventra — Find & Book Live Events</title>
+<meta name="description" content="Eventra — discover, browse and book tickets for live concerts, comedy nights, EDM festivals and tech summits across India.">
+<title>Eventra — Find &amp; Book Live Events</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234F46E5'/%3E%3Ctext x='32' y='44' font-family='Arial,sans-serif' font-size='38' font-weight='bold' text-anchor='middle' fill='white'%3EE%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/home.css">
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
-<nav class="navbar">
-  <div class="container">
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<nav class="navbar site-nav" id="siteNav">
+  <div class="container nav-inner">
     <a href="index.html" class="brand">Event<span>ra</span></a>
-    <ul class="nav-links">
+
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="navLinks">
       <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="events.html" class="">Browse Events</a></li>
-      <li><a href="event-detail-evt001.html" class="">Event Details</a></li>
-      <li><a href="booking-evt001.html" class="">Booking</a></li>
-      <li><a href="my-tickets.html" class="">My Tickets</a></li>
-      <li><a href="admin.html" class="">Admin</a></li>
+      <li><a href="events.html">Browse Events</a></li>
+      <li><a href="my-tickets.html">My Tickets</a></li>
+      <li id="adminNavLink" style="display:none;"><a href="admin.html">Admin</a></li>
+      <li id="authNavContainer"><a href="login.html" class="btn btn-sm btn-primary">Login / Sign Up</a></li>
     </ul>
   </div>
 </nav>
 
-<header class="hero">
-  <div class="container">
-    <div>
-      <div class="eyebrow-note">✨ LIVE MUSIC &amp; CONCERTS 2026</div>
-      <h1>Experience the magic of live music.</h1>
-      <p class="lede">From blockbuster arena concerts with Arijit Singh to electric EDM nights with Sunburn Arena — browse top events and reserve your seats instantly.</p>
-      <div class="hero-actions">
-        <a href="events.html" class="btn btn-primary">Browse All Events</a>
-        <a href="register.html" class="btn btn-outline" style="border-color:var(--paper);color:var(--paper)">Create Account</a>
+<header class="hero home-hero">
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="hero-pill rise" style="--d: .04s"><i class="pulse-dot" aria-hidden="true"></i> Live events · Season 2026</span>
+
+      <h1 class="rise" style="--d: .12s">Good nights start<br>with <em>great tickets.</em></h1>
+
+      <p class="hero-lede rise" style="--d: .2s">
+        From sold-out concerts to stand-up specials and tech summits — find something worth leaving the house for. Book your seat in a few clicks.
+      </p>
+
+      <form class="search-bar rise" id="heroSearch" style="--d: .28s" role="search">
+        <div class="search-field">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>
+          <label class="sr-only" for="searchInput">Search events</label>
+          <input id="searchInput" name="q" type="search" placeholder="Search artists, events or venues" autocomplete="off">
+        </div>
+        <label class="sr-only" for="searchCategory">Category</label>
+        <select id="searchCategory" name="cat">
+          <option value="">All categories</option>
+          <option value="music">Concerts</option>
+          <option value="comedy">Comedy</option>
+          <option value="edm">EDM nights</option>
+          <option value="tech">Tech summits</option>
+        </select>
+        <button class="btn btn-primary search-submit" type="submit">Search <span class="arrow" aria-hidden="true">→</span></button>
+      </form>
+
+      <ul class="hero-assurances rise" style="--d: .36s">
+        <li><span class="tick" aria-hidden="true">✓</span> Instant e-tickets</li>
+        <li><span class="tick" aria-hidden="true">✓</span> Secure checkout</li>
+        <li><span class="tick" aria-hidden="true">✓</span> No hidden fees</li>
+      </ul>
+    </div>
+
+    <div class="hero-visual rise" style="--d: .2s">
+      <article class="feature-card">
+        <div class="feature-media">
+          <img id="featuredImage" src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80" alt="Crowd at a live concert">
+          <span class="live-tag"><i aria-hidden="true"></i> Featured event</span>
+        </div>
+        <div class="feature-body">
+          <span class="feature-kicker">Handpicked for you</span>
+          <h2 id="featuredTitle">Arijit Singh Live — India Tour</h2>
+          <p class="feature-venue" id="featuredVenue">📍 JLN Stadium, New Delhi</p>
+          <div class="feature-foot">
+            <span class="feature-price" id="featuredPrice">₹1,499 <small>/ onward</small></span>
+            <a href="event-detail.html?id=evt001" class="round-link" id="featuredLink" aria-label="View featured event">→</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="float-note" aria-hidden="true">
+        <span class="float-note-icon">🎟️</span>
+        <span><b>Booking made easy</b><small>Tickets straight to your inbox</small></span>
       </div>
     </div>
-    <div class="hero-stub">
-      <div class="stat"><span>Live Events</span><b>6</b></div>
-      <div class="stat"><span>Tickets Booked</span><b>840</b></div>
-      <div class="stat"><span>Categories</span><b>4</b></div>
+  </div>
+
+  <div class="container stats-wrap">
+    <div class="stats-bar rise" style="--d: .44s" id="heroStatsContainer">
+      <div class="stat">
+        <span class="stat-label">Events listed</span>
+        <b class="stat-value" data-stat="events">0</b>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Categories</span>
+        <b class="stat-value" data-stat="categories">0</b>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Cities covered</span>
+        <b class="stat-value" data-stat="cities">0</b>
+      </div>
+      <div class="stat stat-text">
+        <span class="stat-label">Built for</span>
+        <b>Every kind of night out</b>
+      </div>
     </div>
   </div>
-  <div class="perforation"></div>
 </header>
 
 <main>
-  <section class="section container">
-    <div class="section-head">
+  <section class="section container home-section" id="trending">
+    <div class="section-head reveal">
       <div>
-        <h2>🔥 Trending Live Concerts</h2>
-        <p>Catch your favorite superstars performing live on stage this season.</p>
+        <span class="section-kicker">Curated for you</span>
+        <h2>Trending this season</h2>
+        <p>The shows everyone is talking about right now.</p>
       </div>
-      <a href="events.html" class="btn btn-outline">Explore All →</a>
+      <a href="events.html" class="text-link">View all events <span aria-hidden="true">→</span></a>
     </div>
 
-    <div class="card-grid">
-      <div class="ticket-card animate-card">
-        <div class="tc-main">
-          <div class="img-wrapper">
-            <a href="event-detail-evt001.html">
-              <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=600&q=80" alt="Arijit Singh Live Concert">
-            </a>
-            <span class="category-badge">Concert</span>
-          </div>
-          <div class="tc-body">
-            <div class="tc-category">🎵 Music &amp; Concerts</div>
-            <h3><a href="event-detail-evt001.html">Arijit Singh Live - India Tour 2026</a></h3>
-            <div class="tc-meta">
-              <div>📅 Nov 15, 2026 · 07:00 PM</div>
-              <div>📍 JLN Stadium, New Delhi</div>
-            </div>
-            <div class="tc-footer">
-              <div class="tc-price">₹1,499 <small>/ ticket</small></div>
-              <a href="booking-evt001.html" class="btn btn-primary btn-sm">Book Now</a>
-            </div>
-          </div>
+    <div class="card-grid trending-grid" id="trendingGrid">
+      <p style="color:var(--muted)">Loading trending events…</p>
+    </div>
+  </section>
+
+  <section class="section container home-section" id="categories">
+    <div class="section-head reveal">
+      <div>
+        <span class="section-kicker">Explore</span>
+        <h2>Find your kind of night</h2>
+        <p>Pick a category and see what's coming up near you.</p>
+      </div>
+    </div>
+
+    <div class="cat-grid home-cat-grid">
+      <a class="cat-tile reveal" style="--reveal-delay: 0ms" href="events.html?cat=music">
+        <span class="cat-icon music" aria-hidden="true">♪</span>
+        <b>Live Concerts</b>
+        <small>Music &amp; concerts</small>
+        <span class="cat-foot"><span data-cat-count="music">Browse shows</span> <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="cat-tile reveal" style="--reveal-delay: 80ms" href="events.html?cat=comedy">
+        <span class="cat-icon comedy" aria-hidden="true">✦</span>
+        <b>Stand-up Comedy</b>
+        <small>Comedy specials</small>
+        <span class="cat-foot"><span data-cat-count="comedy">Browse shows</span> <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="cat-tile reveal" style="--reveal-delay: 160ms" href="events.html?cat=edm">
+        <span class="cat-icon edm" aria-hidden="true">◈</span>
+        <b>EDM &amp; DJ Nights</b>
+        <small>Electronic music</small>
+        <span class="cat-foot"><span data-cat-count="edm">Browse shows</span> <span aria-hidden="true">→</span></span>
+      </a>
+      <a class="cat-tile reveal" style="--reveal-delay: 240ms" href="events.html?cat=tech">
+        <span class="cat-icon tech" aria-hidden="true">▣</span>
+        <b>Tech Summits</b>
+        <small>Technology &amp; AI</small>
+        <span class="cat-foot"><span data-cat-count="tech">Browse shows</span> <span aria-hidden="true">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="steps-band" id="how-it-works">
+    <div class="container">
+      <div class="section-head reveal">
+        <div>
+          <span class="section-kicker">How it works</span>
+          <h2>Booked in three easy steps</h2>
+          <p>No queues, no confusion. Just pick your night and go.</p>
         </div>
       </div>
 
-      <div class="ticket-card animate-card">
-        <div class="tc-main">
-          <div class="img-wrapper">
-            <a href="event-detail-evt002.html">
-              <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=600&q=80" alt="Sunburn Arena DJ Night">
-            </a>
-            <span class="category-badge">EDM Festival</span>
-          </div>
-          <div class="tc-body">
-            <div class="tc-category">⚡ Electronic Music</div>
-            <h3><a href="event-detail-evt002.html">Sunburn Arena - NYE Festival 2026</a></h3>
-            <div class="tc-meta">
-              <div>📅 Dec 31, 2026 · 08:00 PM</div>
-              <div>📍 Vagator Beach, Goa</div>
-            </div>
-            <div class="tc-footer">
-              <div class="tc-price">₹2,499 <small>/ ticket</small></div>
-              <a href="booking-evt002.html" class="btn btn-primary btn-sm">Book Now</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="ticket-card animate-card">
-        <div class="tc-main">
-          <div class="img-wrapper">
-            <a href="event-detail-evt003.html">
-              <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=600&q=80" alt="A.R. Rahman Live Symphony">
-            </a>
-            <span class="category-badge">Symphony</span>
-          </div>
-          <div class="tc-body">
-            <div class="tc-category">🎻 Classical &amp; Fusion</div>
-            <h3><a href="event-detail-evt003.html">A.R. Rahman Live Symphony</a></h3>
-            <div class="tc-meta">
-              <div>📅 Dec 05, 2026 · 06:30 PM</div>
-              <div>📍 D.Y. Patil Stadium, Mumbai</div>
-            </div>
-            <div class="tc-footer">
-              <div class="tc-price">₹1,999 <small>/ ticket</small></div>
-              <a href="booking-evt003.html" class="btn btn-primary btn-sm">Book Now</a>
-            </div>
-          </div>
-        </div>
+      <div class="steps-grid">
+        <article class="step reveal" style="--reveal-delay: 0ms">
+          <span class="step-number">01</span>
+          <h3>Pick an event</h3>
+          <p>Browse concerts, comedy nights, festivals and summits across the country.</p>
+        </article>
+        <article class="step reveal" style="--reveal-delay: 100ms">
+          <span class="step-number">02</span>
+          <h3>Reserve your seat</h3>
+          <p>Choose your tickets and complete a quick, secure checkout.</p>
+        </article>
+        <article class="step reveal" style="--reveal-delay: 200ms">
+          <span class="step-number">03</span>
+          <h3>Show up &amp; enjoy</h3>
+          <p>Your e-ticket is ready on your phone. Walk in and make a memory.</p>
+        </article>
       </div>
     </div>
   </section>
 
   <section class="section container">
-    <div class="section-head">
-      <div>
-        <h2>Browse by Event Type</h2>
-        <p>Pick a category to see specific events.</p>
+    <div class="cta-panel reveal">
+      <div class="cta-copy">
+        <span class="section-kicker">Ready when you are</span>
+        <h2>Your next great night is one click away.</h2>
+        <p>Explore everything happening around you and grab your seats before they're gone.</p>
       </div>
-    </div>
-    <div class="cat-grid">
-      <a class="cat-tile" href="events.html?cat=music"><span class="cat-icon">🎵</span><b>Live Concerts</b><small>4 upcoming</small></a>
-      <a class="cat-tile" href="events.html?cat=comedy"><span class="cat-icon">🎤</span><b>Stand-up Comedy</b><small>1 upcoming</small></a>
-      <a class="cat-tile" href="events.html?cat=edm"><span class="cat-icon">🎧</span><b>EDM &amp; DJ Nights</b><small>1 upcoming</small></a>
-      <a class="cat-tile" href="events.html?cat=tech"><span class="cat-icon">💻</span><b>Tech Summits</b><small>1 upcoming</small></a>
-    </div>
-  </section>
-
-  <section class="section container">
-    <div class="section-head">
-      <div>
-        <h2>How to Book Your Tickets</h2>
-        <p>Simple and seamless reservation in three easy steps.</p>
-      </div>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Select Concert</h3>
-        <p>Choose from live music tours, stand-up specials, or tech summits.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>Click Book Now</h3>
-        <p>Review event details and ticket pricing.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>Get Your Pass</h3>
-        <p>Receive your confirmed digital ticket pass instantly.</p>
-      </div>
+      <a href="events.html" class="btn btn-cta">Browse all events <span aria-hidden="true">→</span></a>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="container">
-    <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
-    <div>© 2026 Eventra Inc. All rights reserved.</div>
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="brand">Event<span>ra</span></a>
+      <p>Event management and ticket booking, made simple. Find your next great night out.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Explore</h3>
+      <a href="index.html">Home</a>
+      <a href="events.html">Browse events</a>
+      <a href="my-tickets.html">My tickets</a>
+    </div>
+    <div class="footer-col">
+      <h3>Categories</h3>
+      <a href="events.html?cat=music">Live concerts</a>
+      <a href="events.html?cat=comedy">Stand-up comedy</a>
+      <a href="events.html?cat=edm">EDM nights</a>
+      <a href="events.html?cat=tech">Tech summits</a>
+    </div>
+    <div class="footer-col">
+      <h3>Account</h3>
+      <a href="login.html">Login / Sign up</a>
+      <a href="my-tickets.html">Your bookings</a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 Eventra Inc. All rights reserved.</span>
+    <span>Made for live moments.</span>
   </div>
 </footer>
 
+<script src="js/api.js"></script>
+<script src="js/home.js"></script>
 </body>
 </html>
