@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Tickets — Eventra</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">Event<span>ra</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="events.html">Browse Events</a></li>
+      <li><a href="my-tickets.html">My Tickets</a></li>
+      <li id="adminNavLink" style="display:none;"><a href="admin.html">Admin</a></li>
+      <li id="authNavContainer"><a href="login.html" class="btn btn-sm btn-primary" style="padding:6px 14px;color:#fff;">Login / Sign Up</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container section">
+<div class="content-box" id="bookingBox">
+  <p style="color:var(--muted)">Loading booking details...</p>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  // Check if user is logged in
+  const currentUser = JSON.parse(sessionStorage.getItem('eventra_current_user'));
+  const box = document.getElementById('bookingBox');
+
+  if(!currentUser) {
+    box.innerHTML = `
+      <div style="text-align:center;padding:40px;">
+        <h2>🔒 Login Required to Book Tickets</h2>
+        <p style="color:var(--muted);margin:12px 0 24px 0;">You must be logged in to your account to book tickets on Eventra.</p>
+        <a href="login.html" class="btn btn-primary">Go to Login / Sign Up</a>
+      </div>
+    `;
+    return;
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const eventId = urlParams.get('id') || 'evt001';
+  
+  const ev = await fetchEventById(eventId);
+
+  if(!ev || !ev.id) { 
+    box.innerHTML = '<h2>Event not found</h2><p>Please select a valid event.</p>';
+    return; 
+  }
+
+  box.innerHTML = `
+    <div class="detail-layout">
+      <div class="form-card" style="max-width:none;margin:0;padding:0">
+        <h2 style="margin-top:0">Book Your Tickets</h2>
+        <p style="margin-bottom:24px;color:var(--muted)">Attendee details pre-filled from your logged-in account.</p>
+        <form id="bookingForm">
+          <div class="field">
+            <label>Full Name</label>
+            <input type="text" id="userName" value="${currentUser.name || ''}" placeholder="Enter full name" required>
+          </div>
+          <div class="field">
+            <label>Email Address</label>
+            <input type="email" id="userEmail" value="${currentUser.email || ''}" placeholder="Enter email address" required>
+          </div>
+          <div class="field">
+            <label>Phone Number</label>
+            <input type="tel" id="userPhone" placeholder="Enter phone number" required>
+          </div>
+          <div class="field">
+            <label>Number of Tickets</label>
+            <select id="ticketQty">
+              <option value="1">1 Ticket (${ev.priceDisplay || ('₹' + ev.price)})</option>
+              <option value="2">2 Tickets (₹${(ev.price * 2).toLocaleString()})</option>
+              <option value="3">3 Tickets (₹${(ev.price * 3).toLocaleString()})</option>
+              <option value="4">4 Tickets (₹${(ev.price * 4).toLocaleString()})</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px">Confirm &amp; Proceed to Payment</button>
+        </form>
+      </div>
+
+      <aside class="summary-card">
+        <div class="booking-img-container">
+          <img src="${ev.image}" alt="${ev.title}" class="boxed-summary-img" style="width:100%;height:160px;object-fit:cover;border-radius:8px;">
+        </div>
+        <h3 style="margin:12px 0 8px 0;font-size:1.1rem">${ev.title}</h3>
+        <div class="summary-row"><span>Category</span><b>${ev.catShort || ev.category}</b></div>
+        <div class="summary-row"><span>Date</span><b>${ev.date}</b></div>
+        <div class="summary-row"><span>Time</span><b>${ev.time}</b></div>
+        <div class="summary-row"><span>Venue</span><b>${ev.venue}</b></div>
+        <div class="summary-row total" style="margin-top:12px;padding-top:12px"><span>Total Amount</span><b id="totalPrice">${ev.priceDisplay || ('₹' + ev.price)}</b></div>
+      </aside>
+    </div>
+  `;
+
+  document.getElementById('ticketQty').addEventListener('change', (e) => {
+    const qty = parseInt(e.target.value);
+    document.getElementById('totalPrice').textContent = '₹' + (ev.price * qty).toLocaleString();
+  });
+
+  document.getElementById('bookingForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const qty = document.getElementById('ticketQty').value;
+    const name = document.getElementById('userName').value;
+    const email = document.getElementById('userEmail').value;
+    const phone = document.getElementById('userPhone').value;
+    
+    sessionStorage.setItem('pendingBooking', JSON.stringify({
+      eventId: ev.id,
+      title: ev.title,
+      date: ev.date,
+      time: ev.time,
+      venue: ev.venue,
+      image: ev.image,
+      qty: qty,
+      name: name,
+      email: email,
+      phone: phone,
+      amount: '₹' + (ev.price * parseInt(qty)).toLocaleString()
+    }));
+
+    window.location.href = 'payment.html?id=' + ev.id;
+  });
+});
+</script>
+</body>
+</html>
