@@ -12,7 +12,118 @@
   <div class="container">
     <a href="index.html" class="brand">Event<span>ra</span></a>
     <ul class="nav-links">
-      <li><a href="index.html" class="">Home</a></li>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Browse Events — Eventra</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">Event<span>ra</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="events.html">Browse Events</a></li>
+      <li><a href="my-tickets.html">My Tickets</a></li>
+      <li id="adminNavLink" style="display:none;"><a href="admin.html">Admin</a></li>
+      <li id="authNavContainer"><a href="login.html" class="btn btn-sm btn-primary" style="padding:6px 14px;color:#fff;">Login / Sign Up</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container section">
+  <div class="section-head">
+    <div>
+      <h2 id="pageHeading">Browse Upcoming Events</h2>
+      <p id="pageSubheading">Explore live music tours, stand-up specials, and technical conferences.</p>
+    </div>
+  </div>
+
+  <div class="chip-row" style="margin-bottom:28px">
+    <a href="events.html" class="chip active" id="chipAll">All Shows</a>
+    <a href="events.html?cat=music" class="chip" id="chipMusic">Live Concerts</a>
+    <a href="events.html?cat=comedy" class="chip" id="chipComedy">Stand-up Comedy</a>
+    <a href="events.html?cat=edm" class="chip" id="chipEdm">EDM &amp; DJ Nights</a>
+    <a href="events.html?cat=tech" class="chip" id="chipTech">Tech Summits</a>
+  </div>
+
+  <div class="card-grid" id="eventsGrid">
+    <p style="color:var(--muted)">Loading events...</p>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const currentCat = urlParams.get('cat');
+  const searchQuery = (urlParams.get('q') || '').trim().toLowerCase();
+
+  let events = await fetchEvents();
+
+  if(searchQuery) {
+    events = events.filter(e => [e.title, e.category, e.categoryDisplay, e.venue, e.desc]
+      .join(' ').toLowerCase().includes(searchQuery));
+    document.getElementById('pageHeading').textContent = 'Results for “' + searchQuery + '”';
+    document.getElementById('pageSubheading').textContent = events.length
+      ? 'Events matching your search.'
+      : 'Try a different artist, venue or category.';
+  }
+
+  if(currentCat) {
+    events = events.filter(e => e.category === currentCat);
+    if(currentCat === 'music') document.getElementById('pageHeading').textContent = '🎵 Live Music & Concerts';
+    if(currentCat === 'comedy') document.getElementById('pageHeading').textContent = '🎤 Stand-up Comedy Specials';
+    if(currentCat === 'edm') document.getElementById('pageHeading').textContent = '🎧 EDM & DJ Nights';
+    if(currentCat === 'tech') document.getElementById('pageHeading').textContent = '💻 Tech Summits';
+  }
+
+  const grid = document.getElementById('eventsGrid');
+  if(!events.length) {
+    grid.innerHTML = '<p>No events found. Try another search or <a href="events.html">browse all events</a>.</p>';
+    return;
+  }
+
+  grid.innerHTML = events.map(ev => `
+    <div class="ticket-card animate-card event-item">
+      <div class="tc-main">
+        <div class="img-wrapper">
+          <a href="event-detail.html?id=${ev.id}">
+            <img src="${ev.image}" alt="${ev.title}">
+          </a>
+          <span class="category-badge">${ev.catShort || 'Live'}</span>
+        </div>
+        <div class="tc-body">
+          <div class="tc-category">${ev.categoryDisplay || ev.category}</div>
+          <h3><a href="event-detail.html?id=${ev.id}">${ev.title}</a></h3>
+          <div class="tc-meta">
+            <div>📅 ${ev.date} · ${ev.time}</div>
+            <div>📍 ${ev.venue}</div>
+          </div>
+          <div class="tc-footer">
+            <div class="tc-price">${ev.priceDisplay || ('₹' + ev.price)} <small>/ ticket</small></div>
+            <a href="booking.html?id=${ev.id}" class="btn btn-primary btn-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+});
+</script>
+</body>
+</html>
+    <li><a href="index.html" class="">Home</a></li>
       <li><a href="events.html" class="active">Browse Events</a></li>
       <li><a href="event-detail-evt001.html" class="">Event Details</a></li>
       <li><a href="booking-evt001.html" class="">Booking</a></li>
