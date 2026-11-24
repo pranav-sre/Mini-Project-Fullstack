@@ -1,6 +1,6 @@
 # 🎟️ Eventra
 
-**Event Management & Ticket Booking Platform**
+> Discover events, book tickets in a few clicks, and manage everything from an admin dashboard. It is built with plain HTML, CSS and JavaScript, with no framework and no custom backend.
 
 Eventra is a web application for discovering events and booking tickets online, with an admin dashboard for managing the event catalog. It is built with HTML, CSS and vanilla JavaScript on the frontend, backed by [json-server](https://github.com/typicode/json-server) as a lightweight mock REST API.
 
