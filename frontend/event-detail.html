@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Details — Eventra</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">Event<span>ra</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="events.html">Browse Events</a></li>
+      <li><a href="my-tickets.html">My Tickets</a></li>
+      <li id="adminNavLink" style="display:none;"><a href="admin.html">Admin</a></li>
+      <li id="authNavContainer"><a href="login.html" class="btn btn-sm btn-primary" style="padding:6px 14px;color:#fff;">Login / Sign Up</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container section">
+<div class="content-box" id="detailBox">
+  <p style="color:var(--muted)">Loading event details...</p>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const eventId = urlParams.get('id') || 'evt001';
+  
+  const ev = await fetchEventById(eventId);
+  const box = document.getElementById('detailBox');
+
+  if(!ev || !ev.id) {
+    box.innerHTML = '<h2>Event not found</h2><p>Please select a valid event from <a href="events.html">Browse Events</a>.</p>';
+    return;
+  }
+
+  document.title = ev.title + ' — Eventra';
+
+  box.innerHTML = `
+    <div class="detail-layout">
+      <div>
+        <div class="detail-image-wrapper">
+          <img src="${ev.image}" alt="${ev.title}" class="boxed-event-img">
+        </div>
+        <div class="tc-category" style="margin-top:16px">${ev.categoryDisplay || ev.category}</div>
+        <h1 style="margin:8px 0 12px 0">${ev.title}</h1>
+        <p class="tc-meta">
+          <b>📅 ${ev.date}</b> at 🕒 ${ev.time} &middot; 📍 ${ev.venue}
+        </p>
+        <hr style="border:none;border-top:1px solid var(--border);margin:20px 0">
+        <h3>About this event</h3>
+        <p style="line-height:1.7;color:var(--muted)">${ev.desc}</p>
+      </div>
+
+      <aside class="summary-card">
+        <h3 style="margin-top:0">Event Ticket Pass</h3>
+        <div class="summary-row"><span>Ticket Price</span><b>${ev.priceDisplay || ('₹' + ev.price)}</b></div>
+        <div class="summary-row"><span>Available Seats</span><b>${ev.seats || '100 / 100'}</b></div>
+        <div class="summary-row"><span>Status</span><b style="color:var(--gold)">🔥 Selling Fast</b></div>
+        <div style="margin-top:24px">
+          <a href="booking.html?id=${ev.id}" class="btn btn-primary btn-block">Book Now</a>
+        </div>
+      </aside>
+    </div>
+  `;
+});
+</script>
+</body>
+</html>
