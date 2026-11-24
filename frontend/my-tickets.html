@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Tickets — Eventra</title>
+<link rel="stylesheet" href="css/style.css">
+</head> 
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">Event<span>ra</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="events.html">Browse Events</a></li>
+      <li><a href="my-tickets.html">My Tickets</a></li>
+      <li id="adminNavLink" style="display:none;"><a href="admin.html">Admin</a></li>
+      <li id="authNavContainer"><a href="login.html" class="btn btn-sm btn-primary" style="padding:6px 14px;color:#fff;">Login / Sign Up</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container section">
+  <div class="section-head">
+    <div>
+      <h2>🎟️ My Booked Tickets</h2>
+      <p>Your confirmed entry passes linked to your account.</p>
+    </div>
+  </div>
+
+  <div id="popupBanner" class="popup-box" style="display:none;margin-bottom:28px;padding:16px;background:#d1fae5;color:#065f46;border-radius:8px;">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:2rem;">🎉</div>
+      <div>
+        <h3 style="margin:0;color:#065f46">Payment &amp; Booking Confirmed!</h3>
+        <p style="margin:4px 0 0 0;color:#047857">Your tickets have been registered successfully.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-box">
+    <div id="ticketsList" style="display:flex;flex-direction:column;gap:20px">
+      <p style="color:var(--muted)">Loading your tickets...</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  if(urlParams.get('booked') === 'true') {
+    document.getElementById('popupBanner').style.display = 'block';
+  }
+
+ let currentUser = null;
+  try {
+    // Get current logged-in user from sessionStorage
+    currentUser = JSON.parse(sessionStorage.getItem('eventra_current_user'));
+  } catch (e) {
+    currentUser = null;
+  }
+
+  const container = document.getElementById('ticketsList');
+
+  if(!currentUser || (!currentUser.email && !currentUser.name)) {
+    container.innerHTML = `
+      <div style="text-align:center;padding:40px;">
+        <h3>🔒 Please Login to View Your Tickets</h3>
+        <p style="color:var(--muted);margin:12px 0 20px 0;">You must be logged in to see passes booked under your account.</p>
+        <a href="login.html" class="btn btn-primary">Login Now</a>
+      </div>
+    `;
+    return;
+  }
+  const allTickets = await fetchMyTickets();
+  // Filter tickets for current logged-in user email
+  const userTickets = allTickets.filter(t => 
+    (t.userAccountEmail && t.userAccountEmail.toLowerCase() === currentUser.email.toLowerCase()) ||
+    (t.attendeeEmail && t.attendeeEmail.toLowerCase() === currentUser.email.toLowerCase())
+  );
+
+  if(!userTickets.length) {
+    container.innerHTML = '<p style="color:var(--muted)">You have not booked any tickets yet. Explore <a href="events.html" style="color:var(--primary);">Browse Events</a> to book your first pass.</p>';
+    return;
+  }
+
+  container.innerHTML = userTickets.reverse().map(t => `
+    <div class="ticket-stub-display" style="border:1px solid var(--border);padding:20px;border-radius:12px;background:var(--subtle);">
+      <div class="stub-header" style="display:flex;justify-content:space-between;align-items:center">
+        <span class="badge" style="background:#10b981;color:#fff;padding:4px 10px;border-radius:4px;font-size:0.8rem;">VERIFIED PASS</span>
+        <b style="color:var(--muted)">TICKET ID: EVT-${t.id || '8891'}</b>
+      </div>
+      <div class="stub-body" style="display:flex;gap:20px;flex-wrap:wrap;align-items:center;margin-top:16px">
+        <img src="${t.image}" alt="${t.title}" style="width:120px;height:120px;object-fit:cover;border-radius:12px">
+        <div style="flex:1">
+          <h3 style="margin:0 0 8px 0">${t.title}</h3>
+          <div style="color:var(--muted);font-size:0.95rem;line-height:1.6">
+            <div>👤 <b>Attendee:</b> ${t.attendeeName} (${t.attendeeEmail})</div>
+            <div>📅 <b>Date &amp; Time:</b> ${t.date} · ${t.time}</div>
+            <div>📍 <b>Venue:</b> ${t.venue}</div>
+            <div>🎫 <b>Passes:</b> ${t.ticketsCount} Ticket(s) &middot; Paid: <b>${t.totalPaid}</b></div>
+          </div>
+        </div>
+        <div style="text-align:center;padding:16px;background:var(--bg);border-radius:12px;border:1px solid var(--border);">
+          <div style="font-size:2rem">📱</div>
+          <small style="color:var(--muted)">Show at Gate</small>
+        </div>
+      </div>
+    </div>
+  `).join('');
+});
+</script>
+</body>
+</html>
