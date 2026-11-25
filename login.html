@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login & Sign Up — Eventra</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">Event<span>ra</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="events.html">Browse Events</a></li>
+      <li><a href="my-tickets.html">My Tickets</a></li>
+      <li id="adminNavLink" style="display:none;"><a href="admin.html">Admin</a></li>
+      <li id="authNavContainer"><a href="login.html" class="btn btn-sm btn-primary" style="padding:6px 14px;color:#fff;">Login / Sign Up</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container section">
+  <div class="content-box" style="max-width:480px;margin:0 auto;padding:40px;">
+    <div style="text-align:center;margin-bottom:24px;">
+      <h2>Welcome to Eventra</h2>
+      <p style="color:var(--muted);font-size:0.95rem;margin-top:6px;">Your premier platform for discovering and booking unforgettable live music tours, stand-up comedy specials, EDM festivals, and tech summits.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div style="display:flex;border-bottom:1px solid var(--border);margin-bottom:24px;">
+      <button id="tabLoginBtn" onclick="switchTab('login')" style="flex:1;padding:12px;background:none;border:none;border-bottom:2px solid var(--primary);color:var(--text);font-weight:700;cursor:pointer;">Login</button>
+      <button id="tabSignupBtn" onclick="switchTab('signup')" style="flex:1;padding:12px;background:none;border:none;border-bottom:2px solid transparent;color:var(--muted);font-weight:700;cursor:pointer;">Sign Up</button>
+    </div>
+
+    <div id="alertBox" style="display:none;padding:10px 14px;border-radius:6px;margin-bottom:16px;font-size:0.9rem;"></div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm">
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:20px;">Login to Eventra</button>
+    </form>
+
+    <!-- SIGNUP FORM -->
+    <form id="signupForm" style="display:none;">
+      <div class="field">
+        <label>Full Name</label>
+        <input type="string" id="signupName" placeholder="Enter your full name" required>
+      </div>
+      <div class="field">
+        <label>Email Address</label>
+        <input type="email" id="signupEmail" placeholder="Enter your email" required>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="signupPassword" placeholder="Create a password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:20px;">Create Account &amp; Register</button>
+    </form>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+function switchTab(mode) {
+  const loginForm = document.getElementById('loginForm');
+  const signupForm = document.getElementById('signupForm');
+  const tabLoginBtn = document.getElementById('tabLoginBtn');
+  const tabSignupBtn = document.getElementById('tabSignupBtn');
+  const alertBox = document.getElementById('alertBox');
+  alertBox.style.display = 'none';
+
+  if(mode === 'login') {
+    loginForm.style.display = 'block';
+    signupForm.style.display = 'none';
+    tabLoginBtn.style.borderBottomColor = 'var(--primary)';
+    tabLoginBtn.style.color = 'var(--text)';
+    tabSignupBtn.style.borderBottomColor = 'transparent';
+    tabSignupBtn.style.color = 'var(--muted)';
+  } else {
+    loginForm.style.display = 'none';
+    signupForm.style.display = 'block';
+    tabSignupBtn.style.borderBottomColor = 'var(--primary)';
+    tabSignupBtn.style.color = 'var(--text)';
+    tabLoginBtn.style.borderBottomColor = 'transparent';
+    tabLoginBtn.style.color = 'var(--muted)';
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Handle Signup
+  document.getElementById('signupForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value.trim();
+    const alertBox = document.getElementById('alertBox');
+
+    try {
+      // Check if user already exists in db.json /users
+      const res = await fetch(API_BASE + '/users');
+      const users = await res.json();
+      if(users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+        alertBox.style.display = 'block';
+        alertBox.style.background = '#fee2e2';
+        alertBox.style.color = '#991b1b';
+        alertBox.textContent = '⚠️ Email already registered. Please login instead.';
+        return;
+      }
+
+      // Save new user to json-server
+      const createRes = await fetch(API_BASE + '/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password })
+      });
+
+      if(createRes.ok) {
+        alertBox.style.display = 'block';
+        alertBox.style.background = '#d1fae5';
+        alertBox.style.color = '#065f46';
+        alertBox.textContent = '✨ Account created successfully! Please log in.';
+        setTimeout(() => switchTab('login'), 1500);
+      } else {
+        throw new Error('Failed to save user');
+      }
+    } catch(err) {
+      alertBox.style.display = 'block';
+      alertBox.style.background = '#fee2e2';
+      alertBox.style.color = '#991b1b';
+      alertBox.textContent = '⚠️ Error connecting to json-server backend.';
+    }
+  });
+
+  // Handle Login
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+    const alertBox = document.getElementById('alertBox');
+
+    try {
+      const res = await fetch(API_BASE + '/users');
+      const users = await res.json();
+      const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+
+      if(user) {
+        sessionStorage.setItem('eventra_current_user', JSON.stringify(user));
+        // Also check if admin and set auth session
+        const isAdmin = await verifyAdminEmail(user.email);
+        if(isAdmin) {
+          sessionStorage.setItem('adminEmailAuth', user.email);
+        }
+        alertBox.style.display = 'block';
+        alertBox.style.background = '#d1fae5';
+        alertBox.style.color = '#065f46';
+        alertBox.textContent = '🎉 Login successful! Redirecting...';
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1000);
+      } else {
+        alertBox.style.display = 'block';
+        alertBox.style.background = '#fee2e2';
+        alertBox.style.color = '#991b1b';
+        alertBox.textContent = '⚠️ Invalid email or password, or account does not exist. Please sign up first.';
+      }
+    } catch(err) {
+      alertBox.style.display = 'block';
+      alertBox.style.background = '#fee2e2';
+      alertBox.style.color = '#991b1b';
+      alertBox.textContent = '⚠️ Error connecting to json-server backend.';
+    }
+  });
+});
+</script>
+</body>
+</html>
+

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment — Eventra</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container">
+    <a href="index.html" class="brand">Event<span>ra</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="events.html">Browse Events</a></li>
+      <li><a href="my-tickets.html">My Tickets</a></li>
+      <li id="adminNavLink" style="display:none;"><a href="admin.html">Admin</a></li>
+      <li id="authNavContainer"><a href="login.html" class="btn btn-sm btn-primary" style="padding:6px 14px;color:#fff;">Login / Sign Up</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="container section">
+<div class="content-box" style="max-width:700px;margin:0 auto">
+  <div class="section-head" style="margin-bottom:20px">
+    <div>
+      <h2>💳 Secure Payment Gateway</h2>
+      <p>Amount to Pay: <b id="payAmount" style="color:var(--primary);font-size:1.2rem">₹1,499</b></p>
+    </div>
+  </div>
+
+  <div class="payment-options">
+    <!-- Tab selector for payment type -->
+    <div style="display:flex;gap:12px;margin-bottom:20px;">
+      <button type="button" onclick="switchPayMode('upi')" id="upiTabBtn" class="btn btn-primary btn-sm" style="flex:1;">📱 UPI QR &amp; ID</button>
+      <button type="button" onclick="switchPayMode('card')" id="cardTabBtn" class="btn btn-outline btn-sm" style="flex:1;">💳 Credit / Debit Card</button>
+    </div>
+
+    <!-- UPI Box -->
+    <div id="upiSection" class="payment-box">
+      <h3>📱 UPI Payment</h3>
+      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px;">Scan the QR code or enter any valid UPI ID of your choice.</p>
+      <div class="qr-placeholder" style="text-align:center;padding:24px;background:var(--subtle);border-radius:12px;margin:12px 0;border:1px dashed var(--border);">
+        <div style="font-size:3rem;margin-bottom:8px;">🔳</div>
+        <b style="color:var(--text);">Scan QR with any UPI App</b>
+        <div style="font-size:0.85krem;color:var(--muted);margin-top:4px;">Google Pay · PhonePe · Paytm · BHIM</div>
+      </div>
+      <div class="field" style="margin-top:16px">
+        <label>Enter Your UPI ID</label>
+        <input type="text" id="customUpiInput" placeholder="e.g. yourname@oksbi or 9876543210@paytm">
+      </div>
+    </div>
+
+    <!-- Card Box -->
+    <div id="cardSection" class="payment-box" style="display:none;">
+      <h3>💳 Credit or Debit Card</h3>
+      <div class="field" style="margin-top:12px;">
+        <label>Card Number</label>
+        <input type="text" id="cardNumberInput" placeholder="4532 0000 0000 0000">
+      </div>
+      <div style="display:flex;gap:12px">
+        <div class="field" style="flex:1">
+          <label>Expiry Date</label>
+          <input type="text" id="cardExpiryInput" placeholder="MM/YY">
+        </div>
+        <div class="field" style="flex:1">
+          <label>CVV</label>
+          <input type="password" id="cardCvvInput" placeholder="123" maxlength="4">
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:28px">
+      <button id="payBtn" class="btn btn-primary btn-block" style="text-align:center;padding:14px;font-size:1.05rem;">Complete Secure Payment</button>
+    </div>
+  </div>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div>Eventra — Event Management &amp; Ticket Booking Platform</div>
+    <div>© 2026 Eventra Inc. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script>
+function switchPayMode(mode) {
+  const upiSec = document.getElementById('upiSection');
+  const cardSec = document.getElementById('cardSection');
+  const upiBtn = document.getElementById('upiTabBtn');
+  const cardBtn = document.getElementById('cardTabBtn');
+
+  if(mode === 'upi') {
+    upiSec.style.display = 'block';
+    cardSec.style.display = 'none';
+    upiBtn.className = 'btn btn-primary btn-sm';
+    cardBtn.className = 'btn btn-outline btn-sm';
+  } else {
+    upiSec.style.display = 'none';
+    cardSec.style.display = 'block';
+    cardBtn.className = 'btn btn-primary btn-sm';
+    upiBtn.className = 'btn btn-outline btn-sm';
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const bookingData = JSON.parse(sessionStorage.getItem('pendingBooking'));
+  if(bookingData) {
+    document.getElementById('payAmount').textContent = bookingData.amount;
+  }
+
+  document.getElementById('payBtn').addEventListener('click', async () => {
+    if(!bookingData) {
+      alert('Booking session expired or invalid. Please select an event and book again.');
+      window.location.href = 'events.html';
+      return;
+    }
+
+    const currentUser = JSON.parse(localStorage.getItem('eventra_current_user'));
+
+    const ticketPayload = {
+      eventId: bookingData.eventId,
+      title: bookingData.title,
+      date: bookingData.date,
+      time: bookingData.time,
+      venue: bookingData.venue,
+      image: bookingData.image,
+      attendeeName: bookingData.name,
+      attendeeEmail: bookingData.email,
+      attendeePhone: bookingData.phone,
+      userAccountEmail: currentUser ? currentUser.email : bookingData.email,
+      ticketsCount: bookingData.qty,
+      totalPaid: bookingData.amount,
+      bookedAt: new Date().toISOString()
+    };
+
+    const result = await bookTicket(ticketPayload);
+    if(result) {
+      sessionStorage.removeItem('pendingBooking');
+      window.location.href = 'my-tickets.html?booked=true';
+    } else {
+      alert('Payment processing failed. Please ensure json-server is running.');
+    }
+  });
+});
+</script>
+</body>
+</html>
